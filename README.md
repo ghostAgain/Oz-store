@@ -1,12 +1,42 @@
-# React + Vite
+# Oz Store - Venda de Scripts FiveM/SAMP/MTA
+Este projeto é um painel administrativo para gerenciar produtos voltados para FiveM, SAMP e MTA. O site oferece cadastro, listagem, filtragem e exclusão de scripts e serviços.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Funcionalidades
+- Cadastro de produtos com: nome, descrição, preço, categoria (Bypass, Spoofer, Otimização, Cursos), estoque, status e imagem
+- Listagem com busca por nome e filtro por status (Ativo/Inativo)
+- Ordenação por nome, preço e estoque
+- Exclusão de produtos
+- Interface moderna com React e Material-UI
+- Integração com Supabase para banco de dados e imagens
+- Pronto para integração com app mobile
 
-Currently, two official plugins are available:
+## Tecnologias
+- React (hooks, functional components)
+- Material-UI (componentes e estilos)
+- Supabase (PostgreSQL, Storage)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Como usar
+1. Clone o repositório
+2. Configure supaBaseClient.js com URL e chave do Supabase
+3. Instale dependências:
+```bash
+npm install
+```
+4. Inicie o projeto:
+```bash
+npm start
+```
 
-## Expanding the ESLint configuration
+## Estrutura do banco (tabela products)
+- id (UUID)
+- name (string)
+- description (string)
+- price (float)
+- category (string)
+- stock (integer)
+- status (string: Ativo/Inativo)
+- imageurl (string)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Observações
+- Painel para gerenciar produtos vendidos no site
+- Futura integração com app mobile para compras
