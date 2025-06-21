@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Paper, Typography } from '@mui/material';
-import { supabase } from '../supabaseClient';
+import { supabase } from '../supaBaseClient.js';
+import { useNavigate } from 'react-router-dom';
+
+const ADMIN_DISCORD_ID = '552246124606652426';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const handleDiscordLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
@@ -12,12 +17,45 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    async function checkUser() {
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error('Erro ao obter dados do usuário:', userError);
+        return;
+      }
+
+      if (!user) return; // Não logado ainda
+
+      // Discord ID geralmente está no app_metadata.provider_id
+      const discordId = user?.app_metadata?.provider_id || null;
+
+      if (!discordId) {
+        console.error('Discord ID não encontrado no usuário.');
+        return;
+      }
+
+      if (discordId === ADMIN_DISCORD_ID) {
+        navigate('/admin');
+      } else {
+        navigate('/loja');
+      }
+    }
+
+    checkUser();
+  }, [navigate]);
+
   return (
     <Box
       sx={{
         minHeight: '100vh',
         width: '100vw',
-        background: 'linear-gradient(135deg, #0f0c29 60%, #302b63 80%, #24243e 100%)',
+        background:
+          'linear-gradient(135deg, #0f0c29 60%, #302b63 80%, #24243e 100%)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
